@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Sheet Data</title>
+</head>
+<body>
+    <h1>My Updated Directory</h1>
+    <div id="data-container">Loading latest information...</div>
+
+    <script>
+        // Replace with your actual Google Sheet ID
+        const SHEET_ID = '1i1cmUAYN4KGZAffNcd8kc_4JTwtK8JEZIrgVyTVTmW8';
+        const csvUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-1vRtXiqaOhU0AE6vDErOGfm2G5jZ9zYQNWhDDgB0MF44jkqSFTUVyMnBkZyP7v3ikkY6q4FZsIvWcXsL/pub?output=csv`;
+
+        async function fetchSheetData() {
+            try {
+                const response = await fetch(csvUrl);
+                const csvText = await response.text();
+                displayData(csvText);
+            } catch (error) {
+                document.getElementById('data-container').innerText = 'Error loading data.';
+            }
+        }
+
+        function displayData(csvText) {
+            // Simple logic to parse CSV lines into an HTML list
+            const rows = csvText.split('\n');
+            let html = '<ul>';
+            rows.forEach(row => {
+                const columns = row.split(',');
+                html += `<li>${columns.join(' | ')}</li>`;
+            });
+            html += '</ul>';
+            document.getElementById('data-container').innerHTML = html;
+        }
+
+        fetchSheetData();
+    </script>
+</body>
+</html>

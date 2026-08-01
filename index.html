@@ -10,8 +10,8 @@
 
     <script>
         // Replace with your actual Google Sheet ID
-        const SHEET_ID = '1i1cmUAYN4KGZAffNcd8kc_4JTwtK8JEZIrgVyTVTmW8';
-        const csvUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-1vRtXiqaOhU0AE6vDErOGfm2G5jZ9zYQNWhDDgB0MF44jkqSFTUVyMnBkZyP7v3ikkY6q4FZsIvWcXsL/pub?output=csv`;
+        const SHEET_ID = '1iPldTp6W5fHxeq0Nucc0a6Ljra1GZYVz5kMESXHz_rU';
+        const csvUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-1vQrbbLSevXn0VUn6LTXuIQxf3J3cHxCaIpTPMCU7l9RQ9IlMgULTEdwJv_xAdSgCrD4mM1MdRfYcNcy/pubhtml`;
 
         async function fetchSheetData() {
             try {
@@ -23,7 +23,8 @@
             }
         }
 
-        function displayData(csvText) {
+        function getData(csvText) {
+            
             // Simple logic to parse CSV lines into an HTML list
             const rows = csvText.split('\n');
             let html = '<ul>';

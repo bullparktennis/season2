@@ -17,7 +17,7 @@
             try {
                 const response = await fetch(csvUrl);
                 const csvText = await response.text();
-                displayData(csvText);
+                getData(csvText);
             } catch (error) {
                 document.getElementById('data-container').innerText = 'Error loading data.';
             }

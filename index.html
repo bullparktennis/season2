@@ -3,40 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Live Sheet Data</title>
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <h1>My Updated Directory</h1>
+    <h1>Tennis Directory</h1>
     <div id="data-container">Loading latest information...</div>
 
-    <script>
-        // Replace with your actual Google Sheet ID
-        const SHEET_ID = '1iPldTp6W5fHxeq0Nucc0a6Ljra1GZYVz5kMESXHz_rU';
-        const csvUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-1vQrbbLSevXn0VUn6LTXuIQxf3J3cHxCaIpTPMCU7l9RQ9IlMgULTEdwJv_xAdSgCrD4mM1MdRfYcNcy/pub?output=csv`;
+    <h1>BullPark Tennis Rankings</h1>
+    <ol id="ranking_HTML"></ol>
 
-        async function fetchSheetData() {
-            try {
-                const response = await fetch(csvUrl);
-                const csvText = await response.text();
-                getData(csvText);
-            } catch (error) {
-                document.getElementById('data-container').innerText = 'Error loading data.';
-            }
-        }
+    <div id="playerDetails"></div>
 
-        function getData(csvText) {
-            
-            // Simple logic to parse CSV lines into an HTML list
-            const rows = csvText.split('\n');
-            let html = '<ul>';
-            rows.forEach(row => {
-                const columns = row.split(',');
-                html += `<li>${columns.join(' | ')}</li>`;
-            });
-            html += '</ul>';
-            document.getElementById('data-container').innerHTML = html;
-        }
-
-        fetchSheetData();
-    </script>
 </body>
+
 </html>

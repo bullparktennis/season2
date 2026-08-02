@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class Person{
     constructor(name, games, sympathy, awesome) {
         this.name = name;
@@ -97,16 +99,34 @@ playerList.forEach(player => {
             }
         }
 
+
+        ArrayList<Game> gameList = new ArrayList<>();
+
         function getData(csvText) {
             
             // Simple logic to parse CSV lines into an HTML list
-            const rows = csvText.split('\n');
-            let html = '<ul>';
-            rows.forEach(row => {
-                const columns = row.split(',');
-                html += `<li>${columns.join(' | ')}</li>`;
+            const rows = csvText.trim().split('\n');
+            //add a header column
+            const headers = rows[0].split(',');
+            const people = [];
+
+            for (let i=1, i < rows.length; i++) {
+                const column = rows[i].split(',')
+                String date = column[0];
+                String player1 = column[1];
+                String player2 = column[2];
+                String type = column[3];
+                int quantity = column[4];
+
+                Game gameFromSheet = new Game(player1, player2, type, quantity);
+                gameList.add(gameFromSheet);
+                
+                
+            
+            let html = '';
+            gameList.forEach(game => {
+                html += game.person1;
             });
-            html += '</ul>';
             document.getElementById('data-container').innerHTML = html;
         }
 

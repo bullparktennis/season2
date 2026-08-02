@@ -6,7 +6,7 @@ class Person{
         this.awesome = awesome;
         this.id = `${name.replaceAll(" ", "").toLowerCase()}`;
 
-        this.score = this.calculateScore();
+        this.score = calculateScore;
         this.currentRank = 0;
 
         this.link = null;
@@ -98,10 +98,11 @@ playerList.forEach(player => {
         }
 
 
-        const gameList = [];
 
         function getData(csvText) {
-            
+            // Make list of games
+            const gameList = [];
+
             // Simple logic to parse CSV lines into an HTML list
             const rows = csvText.trim().split('\n');
             //add a header column
@@ -116,11 +117,69 @@ playerList.forEach(player => {
                 const type = column[3];
                 const quantity = Number(column[4]);
 
+                //Create game objects from each row in the spreadsheet
                 const gameFromSheet = new Game(player1, player2, type, quantity);
                 gameList.push(gameFromSheet);
                 
                 
             }
+
+            gamesList.forEach(game => {
+                const p1 = playerMap[game.person1];
+                const p2 = playerMap[game.person2];
+            
+                if (game.type === "awe") {
+                    p1.awesome += game.quantity;
+                } else if (game.type === "sym") {
+                    p1.sympathy += game.quantity;
+                } else if (game.type === "d" || game.type === "s") {
+            
+                    addOrMergeGame({
+                        type: game.type,
+                        person2: game.person2,
+                        quantity: game.quantity
+                    }, p1);
+            
+                    if (game.type == "d" && p2) {
+                        addOrMergeGame({
+                        type: game.type,
+                        person2: game.person1,
+                        quantity: game.quantity
+                    }, p2);
+                }
+                } else {
+                    throw Error("Invalid game type");
+                }
+            });
+            
+            
+            function addOrMergeGame(game, player) {
+                const type = game.type;
+                const p2 = game.person2;
+            
+                const findGame = player.games.find(
+                g => g.type === type && g.person2 === p2
+                );
+            
+                if (findGame) {
+                    findGame.quantity += game.quantity;
+                } else {
+                    player.games.push({
+                        type: game.type,
+                        person2: game.person2,
+                        quantity: game.quantity
+                    });
+                }
+            }
+            
+            playerList.forEach(player => {
+                player.score = player.calculateScore();
+            });
+
+
+
+
+            
             let html = '';
             gameList.forEach(game => {
                 html += game.person1 + "<br>";
@@ -129,4 +188,6 @@ playerList.forEach(player => {
         }
 
         fetchSheetData();
+
+
 

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 class Person{
     constructor(name, games, sympathy, awesome) {
         this.name = name;
@@ -100,7 +98,7 @@ playerList.forEach(player => {
         }
 
 
-        ArrayList<Game> gameList = new ArrayList<>();
+        const gameList = [];
 
         function getData(csvText) {
             
@@ -110,22 +108,22 @@ playerList.forEach(player => {
             const headers = rows[0].split(',');
             const people = [];
 
-            for (let i=1, i < rows.length; i++) {
+            for (let i=1; i < rows.length; i++) {
                 const column = rows[i].split(',')
-                String date = column[0];
-                String player1 = column[1];
-                String player2 = column[2];
-                String type = column[3];
-                int quantity = column[4];
+                const date = column[0];
+                const player1 = column[1];
+                const player2 = column[2];
+                const type = column[3];
+                const quantity = Number(column[4]);
 
-                Game gameFromSheet = new Game(player1, player2, type, quantity);
-                gameList.add(gameFromSheet);
+                const gameFromSheet = new Game(player1, player2, type, quantity);
+                gameList.push(gameFromSheet);
                 
                 
-            
+            }
             let html = '';
             gameList.forEach(game => {
-                html += game.person1;
+                html += game.person1 + "<br>";
             });
             document.getElementById('data-container').innerHTML = html;
         }
